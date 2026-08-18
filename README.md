@@ -21,9 +21,20 @@ The agent stores conversation history in CockroachDB and retrieves it via the Ma
 ### AWS
 - **AWS Lambda** – hosts the memory retrieval function
 
+### Distributed Vector Indexing
+Created a `demo_posts` table with a `VECTOR(3)` column and HNSW index.  
+Inserted sample embeddings and ran a similarity query returning distance scores (0, 1.414, 2.828).  
+This demonstrates CockroachDB's ability to handle semantic search at scale.
+
 ## Setup Instructions
 1. Clone this repo.
 2. Create a CockroachDB Cloud cluster and get the connection string.
 3. Set environment variables:
    ```bash
    export DATABASE_URL="postgresql://user:pass@host:26257/defaultdb?sslmode=verify-full"
+4. Run insert_data.py to populate sample memory.
+5. Deploy lambda_function.py to AWS Lambda (with pg8000 layer).
+6. Enable Lambda Function URL for public access.
+
+Demo: https://rhx4s2ewgmxjjmcjboz6vm27ea0qcoua.lambda-url.ap-south-1.on.aws
+Video: https://youtu.be/F83jBCuUAwM?si=svsqrAb80xuQ79sH
